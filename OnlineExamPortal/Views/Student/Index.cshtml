@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
+}
+<h2>Index</h2>
+@{ 
+    OnlineExamPortal.Models.Student st = ViewBag.st;
+    string FullName = st.FirstName + " " + st.LastName;
+}
+<h4>@st.Pin</h4>
+<h4>@st.Password</h4>
+<h4>@FullName</h4>
+<h4>@st.Course</h4>
+<h4>@st.Sem</h4>
+<h4>@st.College</h4>

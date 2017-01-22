@@ -1,3 +1,108 @@
-﻿@{
+﻿@model OnlineExamPortal.Models.Login
+@{
     ViewBag.Title = "Login";
+    if (ViewBag.doesErrorExist == 1)
+    {
+        <script type="text/javascript"> @Html.Raw("alert(\""+ ViewBag.error + "\")") </script>
+    }
+}
+<div class="row" style="padding-top:12%;">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <div id="panels" class="panel panel-success">
+            <div role="button" onclick="pb1()" class="panel-heading">
+                <h3 class="panel-title">Student Login</h3>
+            </div>
+            <div id="pb1" class="panel-body">
+                @using (Html.BeginForm("Student", "Login", FormMethod.Post, new { @class = "form-horizontal" }))
+                {
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user-o" aria-hidden="true"></i></span>
+                        @Html.TextBoxFor(login => login.Username, new { @class = "form-control", @placeholder = "Enter Your Username", aria_describedby = "basic-addon1" })         
+                    </div><br>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon2"><i class="fa fa-key" aria-hidden="true"></i></span>
+                        @Html.PasswordFor(login => login.Password, new { @class = "form-control", @placeholder = "Enter Your Password", aria_describedby = "basic-addon2" })         
+                    </div><br>
+                    <input class="btn btn-warning btn-sm" type="submit" value="Login">
+                }
+            </div>
+
+            <div role="button" onclick="pb2()" class="panel-heading">
+                <h3 class="panel-title">Faculty Login</h3>
+            </div>
+            <div id="pb2" class="panel-body">
+                @using (Html.BeginForm(Html.BeginForm("Faculty", "Login", FormMethod.Post, new { @class = "form-horizontal" })))
+                {
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user-o" aria-hidden="true"></i></span>
+                        <input name="username" type="text" class="form-control" required placeholder="Enter Your Username" aria-describedby="basic-addon1">
+                    </div><br>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon2"><i class="fa fa-key" aria-hidden="true"></i></span>
+                        <input name="password" type="password" class="form-control" required placeholder="Enter Your Password" aria-describedby="basic-addon2">
+                    </div><br>
+                    <input class="btn btn-warning btn-sm" type="submit" value="Login">
+                }
+            </div>
+
+            <div role="button" onclick="pb3()" class="panel-heading">
+                <h3 class="panel-title">Examiner Login</h3>
+            </div>
+            <div id="pb3" class="panel-body">
+                @using (Html.BeginForm(Html.BeginForm("Examiner", "Login", FormMethod.Post, new { @class = "form-horizontal" })))
+                {
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user-o" aria-hidden="true"></i></span>
+                        <input name="username" type="text" class="form-control" required placeholder="Enter Your Username" aria-describedby="basic-addon1">
+                    </div><br>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon2"><i class="fa fa-key" aria-hidden="true"></i></span>
+                        <input name="password" type="password" class="form-control" required placeholder="Enter Your Password" aria-describedby="basic-addon2">
+                    </div><br>
+                    <input class="btn btn-warning btn-sm" type="submit" value="Login">
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3"></div>
+</div>
+<script>
+    $('#pb2').hide();
+    $('#pb3').hide();
+    function pb1() {
+        $('#pb1').show();
+        $('#pb2').hide();
+        $('#pb3').hide();
+    }
+    function pb2() {
+        $('#pb1').hide();
+        $('#pb2').show();
+        $('#pb3').hide();
+    }
+    function pb3() {
+        $('#pb1').hide();
+        $('#pb2').hide();
+        $('#pb3').show();
+    }
+</script>
+@{
+    if (ViewBag.doesErrorExist == 1)
+    {
+        @*if (ViewBag.st != null)
+        {
+            <script type="text/javascript"> @Html.Raw("console.log( " + ViewBag.st + " );") </script>
+        }*@
+        ViewBag.doesErrorExist = 0;
+        string e = ViewBag.errorLocation;
+        switch (e)
+        {
+            case "Faculty":
+                <script type="text/javascript"> @Html.Raw("pb2();") </script>
+                break;
+            case "Examiner":
+                <script type="text/javascript"> @Html.Raw("pb3();") </script>
+                break;
+        }
+    }
 }

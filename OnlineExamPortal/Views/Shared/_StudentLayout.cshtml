@@ -1,24 +1,22 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    @{ 
+    @{
         String AppName = "Online Exam Portal";
     }
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - @AppName</title>
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/nihanth.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/yeti.bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/animate.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="~/Content/font-awesome.min.css" />
     <script src="~/Scripts/modernizr-2.8.3.js"></script>
     <script src="~/Scripts/jquery-3.1.1.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
 </head>
-<body style="background-image:url('../../Images/building.jpg');background-repeat:no-repeat;background-size:cover;">
+<body>
     <div class="navbar navbar-inverse navbar-fixed-top">
-        
+
         <div class="container">
             <div class="navbar-header">
                 <a class="navbar-brand" href="#">@AppName</a>
@@ -29,8 +27,8 @@
                 </button>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Login", new { area = "" }, new { @class = "" })</li>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>@Html.ActionLink("Logout", "Logout", "Student", new { area = "" }, new { @class = "" })</li>
                 </ul>
             </div>
         </div>
