@@ -11,14 +11,12 @@ namespace OnlineExamPortal.Controllers
 {
     public class LoginController : Controller
     {
-
         static string connectionString = @"mongodb://nihanth007:Lyvin##421@ds056009.mlab.com:56009/nihanth";
         static MongoClientSettings settings = MongoClientSettings.FromUrl(
           new MongoUrl(connectionString)
         );
         MongoClient mongoClient = new MongoClient(settings);
-
-        // GET: Login
+        
         public ActionResult Index()
         {
             if(TempData["doesErrorExist"] != null)
@@ -44,8 +42,8 @@ namespace OnlineExamPortal.Controllers
             }
             if (Password == l.Password)
             {
-                TempData["st"] = st[0];
-                TempData["isLogged"] = true;
+                Session["st"] = st[0];
+                Session["isLogged"] = true;
                 return Redirect("/Student/Index");
             }
             else
@@ -71,8 +69,8 @@ namespace OnlineExamPortal.Controllers
             }
             if (Password == l.Password)
             {
-                TempData["st"] = st[0];
-                TempData["isLogged"] = true;
+                Session["st"] = st[0];
+                Session["isLogged"] = true;
                 return Redirect("/Faculty/Index");
             }
             else
@@ -98,8 +96,8 @@ namespace OnlineExamPortal.Controllers
             }
             if (Password == l.Password)
             {
-                TempData["st"] = st[0];
-                TempData["isLogged"] = true;
+                Session["st"] = st[0];
+                Session["isLogged"] = true;
                 return Redirect("/Examiner/Index");
             }
             else

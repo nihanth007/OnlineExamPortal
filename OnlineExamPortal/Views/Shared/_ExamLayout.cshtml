@@ -28,7 +28,6 @@
                 </button>
             </div>
             <div class="navbar-collapse collapse navbar-right">
-                @Html.Raw("<button type=\"button\" class=\"btn navbar-nav navbar-btn bg-primary\" data-toggle=\"modal\" data-target=\"#myModal\">Change Password</button>");
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Logout", "Logout", "Student", new { area = "" }, new { @class = "" })</li>
                 </ul>
@@ -38,6 +37,7 @@
     @{
         OnlineExamPortal.Models.Student st = ViewBag.st;
         string FullName = st.FirstName + " " + st.LastName;
+        OnlineExamPortal.Models.ActiveExam ae = ViewBag.examData;
     }
     <div id="main" class="row container body-content">
         <div class="col-md-4" style="background-color:azure;padding-bottom:20px;">
@@ -46,6 +46,20 @@
             <h5>Course : </h5><data>@st.Course</data>
             <h5>Sem : </h5><data>@st.Sem</data>
             <h5>College : </h5><data>@st.College</data>
+            <h5>Exam Name : </h5><data>@ae.ExamName </data>
+            <h5>Time Limit : </h5><data>@ae.Time  Minutes</data>
+            <h5>Total no. of Questions : </h5><data>@ae.Questions </data>
+            <QB>
+                @{ 
+                    int i;
+                    int n = ae.Questions;
+                    for(i=0;i<n;i++)
+                    {
+                        <QB id="q@(i+1)">@(i+1)</QB>
+                    }
+                }
+            </div>
+            
         </div>
         <div class="col-md-8">
             @RenderBody()
@@ -59,39 +73,6 @@
         var navHeight = $('#nav_container').height();
         $('#main').css("padding-top", navHeight);
     </script>
-
-    <div id="myModal" class="modal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Change Password</h4>
-                </div>
-                <div class="modal-body">
-                    @using (Html.BeginForm("ChangePassword", "Student", FormMethod.Post, new { @class = "form-horizontal" }))
-                    {
-                        <div class="input-group">
-                            <span class="input-group-addon" id="basic-addon1"><i class="fa fa-key" aria-hidden="true"></i></span>
-                            @Html.PasswordFor(ChangePassword => ViewData["newPassword"], new { @class = "form-control", @placeholder = "Enter New Password", aria_describedby = "basic-addon1" })
-                        </div><br>
-                        <div class="input-group">
-                            <span class="input-group-addon" id="basic-addon2"><i class="fa fa-key" aria-hidden="true"></i></span>
-                            @Html.PasswordFor(ChangePassword => ViewData["ConfirmPassword"], new { @class = "form-control", @placeholder = "Confirm New Password", aria_describedby = "basic-addon2" })
-                        </div><br>
-                        <input class="btn btn-success btn-sm" type="submit" value="Change Password">
-                    }
-                </div>
-                <div class="modal-footer">
-                    <div class="alert alert-dismissible alert-warning">
-                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        <h4>Warning!</h4>
-                        <p>Changing the Password During an Exam Results in Cancellation of the Exam and No Further Examination will be Held</p>
-                    </div>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
 </body>
 </html>

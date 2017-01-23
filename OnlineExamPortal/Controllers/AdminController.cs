@@ -13,5 +13,11 @@ namespace OnlineExamPortal.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public ActionResult Test(string text)
+        {
+            return View();
+        }
     }
 }

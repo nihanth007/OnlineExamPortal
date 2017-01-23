@@ -2,14 +2,14 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_StudentLayout.cshtml";
 }
-<h2>Index</h2>
-@{ 
-    OnlineExamPortal.Models.Student st = ViewBag.st;
-    string FullName = st.FirstName + " " + st.LastName;
-}
-<h4>@st.Pin</h4>
-<h4>@st.Password</h4>
-<h4>@FullName</h4>
-<h4>@st.Course</h4>
-<h4>@st.Sem</h4>
-<h4>@st.College</h4>
+<h3>Hello, @ViewBag.st.FirstName</h3>
+<br /><br />
+<h4>Please Select any of the Exams that are availabe for you</h4>
+
+<form method="post" action="/Student/ExamStart">
+    <select name="exam" class="custom-select form-control">
+        <option selected disabled>Choose Your Exam...</option>
+        <option value="nwp">National Womens Parliament</option>
+    </select>
+    <input type="submit" value="Start Exam" />
+</form>

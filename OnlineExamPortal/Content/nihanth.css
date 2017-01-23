@@ -1,4 +1,8 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿data{
+    color : red;
+}
+
+QB{
+    height:20px;
+    width:20px;
 }
