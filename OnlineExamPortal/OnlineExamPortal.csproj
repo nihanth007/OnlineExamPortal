@@ -175,6 +175,7 @@
     <Content Include="Views\Shared\_StudentLayout.cshtml" />
     <Content Include="Views\Shared\_ExamLayout.cshtml" />
     <Content Include="Views\Student\ExamStart.cshtml" />
+    <Content Include="Views\Student\Submit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

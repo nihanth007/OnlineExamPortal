@@ -7,9 +7,14 @@
 <h4>Please Select any of the Exams that are availabe for you</h4>
 
 <form method="post" action="/Student/ExamStart">
-    <select name="exam" class="custom-select form-control">
+    <select name="ExamId" class="custom-select form-control">
         <option selected disabled>Choose Your Exam...</option>
-        <option value="nwp">National Womens Parliament</option>
+        @{ 
+            for (int i = 0; i < ViewBag.NumberOfExams; i++)
+            {
+                <option value="@ViewBag.Exams[i].ExamId">@ViewBag.Exams[i].ExamName</option>
+            }
+         }
     </select>
-    <input type="submit" value="Start Exam" />
+    <input type="submit" class="btn btn-success" value="Start Exam" />
 </form>

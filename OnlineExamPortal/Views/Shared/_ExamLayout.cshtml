@@ -49,17 +49,17 @@
             <h5>Exam Name : </h5><data>@ae.ExamName </data>
             <h5>Time Limit : </h5><data>@ae.Time  Minutes</data>
             <h5>Total no. of Questions : </h5><data>@ae.Questions </data>
-            <QB>
+            <div class="btn-group">
                 @{ 
                     int i;
                     int n = ae.Questions;
                     for(i=0;i<n;i++)
                     {
-                        <QB id="q@(i+1)">@(i+1)</QB>
+                        <button class="btn btn-default" id="q@(i+1)">@(i+1)</button>
                     }
                 }
             </div>
-            
+            <button class="btn btn-block btn-success" onclick='$("#ExamForm").submit();'>Submit Exam</button>
         </div>
         <div class="col-md-8">
             @RenderBody()

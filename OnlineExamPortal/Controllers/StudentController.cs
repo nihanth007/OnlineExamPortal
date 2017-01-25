@@ -11,7 +11,8 @@ namespace OnlineExamPortal.Controllers
 {
     public class StudentController : Controller
     {
-        static string connectionString = @"mongodb://nihanth007:Lyvin##421@ds056009.mlab.com:56009/nihanth";
+        //static string connectionString = @"mongodb://nihanth007:Lyvin##421@ds056009.mlab.com:56009/nihanth";
+        static string connectionString = @"mongodb://localhost:27017/nihanth";
         static MongoClientSettings settings = MongoClientSettings.FromUrl(
           new MongoUrl(connectionString)
         );
@@ -28,6 +29,16 @@ namespace OnlineExamPortal.Controllers
             if ((bool)Session["isLogged"] == true)
             {
                 ViewBag.st = (Student)Session["st"];
+                var db = mongoClient.GetDatabase("nihanth");
+
+                //Query to ActiveExams
+                var ActiveExam = db.GetCollection<ActiveExam>("activeexams");
+                var filter = new BsonDocument("IsActive", true);
+                var activeExamResult = ActiveExam.Find(filter).ToList();
+
+                ViewBag.Exams = activeExamResult;
+                ViewBag.NumberOfExams = activeExamResult.Count;
+
                 return View();
             }
             else
@@ -51,9 +62,9 @@ namespace OnlineExamPortal.Controllers
         }
         
         [HttpPost]
-        public ActionResult ExamStart(string ExamId)
+        public ActionResult ExamStart()
         {
-            ExamId = "nwp";
+            string ExamId = Request.Form["ExamId"];
             if (Session["isLogged"] == null)
             {
                 TempData["doesErrorExist"] = 1;
@@ -86,7 +97,9 @@ namespace OnlineExamPortal.Controllers
                     Time = activeExamResult[0].Time
                 };
                 ViewBag.examData = exam;
+                Session["ExamData"] = exam;
                 Session["Questions"] = questions;
+                ViewBag.Questions = questions;
                 return View();
             }
             else
@@ -94,5 +107,30 @@ namespace OnlineExamPortal.Controllers
                 return Redirect("/Login/Index");
             }
         }
+
+        [HttpPost]
+        public ActionResult Submit()
+        {
+            ActiveExam ae = (ActiveExam)Session["ExamData"];
+            int[] n = new int[ae.Questions];
+            for (int i=0;i<ae.Questions;i++)
+            {
+                string x = "q" + (i + 1).ToString();
+                if (Request.Form[x] != null)
+                {
+                    n[i] = Int32.Parse(Request.Form[x]);
+                }
+                else
+                {
+                    n[i] = 0;
+                }
+            }
+            ViewBag.st = (Student)Session["st"];
+            ViewBag.UrAnswers = n;
+            ViewBag.examData = Session["ExamData"];
+            ViewBag.Questions = Session["Questions"];
+            return View();
+        }
+
     }
 }

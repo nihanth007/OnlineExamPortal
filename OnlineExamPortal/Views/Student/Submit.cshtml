@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "Submit";
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
+}
+<h2>Exam Result</h2>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <td>Question Number</td>
+            <td>Correct Answer</td>
+            <td>Your Answer</td>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            string color = null;
+            string value = null;
+            for (int i = 0; i < ViewBag.examData.Questions; i++)
+            {
+                if (ViewBag.UrAnswers[i] == ViewBag.Questions[i].Answer)
+                {
+                    color = "success";
+                    value = ViewBag.UrAnswers[i].ToString();
+                }
+                else
+                {
+                    color = "danger";
+                    value = ViewBag.UrAnswers[i].ToString();
+                }
+                if (ViewBag.UrAnswers[i] == 0)
+                {
+                    color = "warning";
+                    value = "Not Answered";
+
+                }
+                <tr class="@color">
+                    <td>@(i+1)</td>
+                    <td>@value</td>
+                    <td>@ViewBag.Questions[i].Answer</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table> 
+
