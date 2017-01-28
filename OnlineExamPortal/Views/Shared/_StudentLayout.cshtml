@@ -68,30 +68,55 @@
                     <h4 class="modal-title">Change Password</h4>
                 </div>
                 <div class="modal-body">
-                    @using (Html.BeginForm("ChangePassword", "Student", FormMethod.Post, new { @class = "form-horizontal" }))
-                    {
+
+                    <form class="form-horizontal">
                         <div class="input-group">
                             <span class="input-group-addon" id="basic-addon1"><i class="fa fa-key" aria-hidden="true"></i></span>
-                            @Html.PasswordFor(ChangePassword => ViewData["newPassword"], new { @class = "form-control", @placeholder = "Enter New Password", aria_describedby = "basic-addon1" })
+                            <input type="password" id="newPassword" class="form-control" placeholder="Enter New Password" aria_describedby="basic-addon1" />
                         </div><br>
                         <div class="input-group">
                             <span class="input-group-addon" id="basic-addon2"><i class="fa fa-key" aria-hidden="true"></i></span>
-                            @Html.PasswordFor(ChangePassword => ViewData["ConfirmPassword"], new { @class = "form-control", @placeholder = "Confirm New Password", aria_describedby = "basic-addon2" })
+                            <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm Your Password" aria_describedby="basic-addon2" />
                         </div><br>
-                        <input class="btn btn-success btn-sm" type="submit" value="Change Password">
-                    }
+                    </form>
                 </div>
                 <div class="modal-footer">
-                    <div class="alert alert-dismissible alert-warning">
-                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        <h4>Warning!</h4>
-                        <p>Changing the Password During an Exam Results in Cancellation of the Exam and No Further Examination will be Held</p>
-                    </div>
+                    <p id="passwordText" style="color:red;"></p>
+                    <button type="button" id="changePassword" onclick="changePassword()" class="btn btn-success btn-sm">Change Password</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        function changePassword() {
+            console.log("Change of Password Requested");
+            if ($("#newPassword").val() == $("#confirmPassword").val()) {
+                $.ajax({
+                    type: "POST",
+                    url: "/Student/ChangePassword",
+                    data: 'Password='+ $("#newPassword").val(),
+                    success: function (response) {
+                        console.log(response);
+                        $("#passwordText").html(response);
+                    },
+                    failure: function (response) {
+                        console.log("Failure");
+                        $("#passwordText").html(response);
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        console.log("Error");
+                        $("#passwordText").html(response);
+                        alert(response.responseText);
+                    }
+                });
+            }
+            else {
+                $("#passwordText").html("The Passwords Do Not Match");
+            }
+        }
+    </script>
 
 </body>
 </html>

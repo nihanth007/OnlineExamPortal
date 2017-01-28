@@ -17,4 +17,11 @@ namespace OnlineExamPortal.Models
         public int Sem { get; set; }
         public string College { get; set; }
     }
+
+    [Serializable]
+    public class ChangePassword
+    {
+        public string Password { get; set; }
+        public string ConfirmPassword { get; set; }
+    }
 }

@@ -17,7 +17,7 @@ namespace OnlineExamPortal.Controllers
           new MongoUrl(connectionString)
         );
         MongoClient mongoClient = new MongoClient(settings);
-        
+
         public ActionResult Index()
         {
             if (Session["isLogged"] == null)
@@ -56,11 +56,29 @@ namespace OnlineExamPortal.Controllers
             return Redirect("/Login/Index");
         }
 
-        public ActionResult ChangePassword()
+        [HttpPost]
+        public string ChangePassword()
         {
-            return Redirect("Index");
+            string cp = null;
+            string Password = Request.Form["Password"];
+            Student st = (Student)Session["st"];
+            var db = mongoClient.GetDatabase("nihanth");
+            var students = db.GetCollection<Student>("students");
+
+            var filter = new BsonDocument("Pin", st.Pin);
+            var update = new BsonDocument { { "$set", new BsonDocument("Password", Password) } };
+            try
+            {
+                var result = students.UpdateOne(filter, update);
+                cp = "Your Password has been Succesfully Changed";
+            }
+            catch(BsonSerializationException BE)
+            {
+                cp = BE.ToString();
+            }
+            return cp;
         }
-        
+
         [HttpPost]
         public ActionResult ExamStart()
         {
@@ -113,7 +131,7 @@ namespace OnlineExamPortal.Controllers
         {
             ActiveExam ae = (ActiveExam)Session["ExamData"];
             int[] n = new int[ae.Questions];
-            for (int i=0;i<ae.Questions;i++)
+            for (int i = 0; i < ae.Questions; i++)
             {
                 string x = "q" + (i + 1).ToString();
                 if (Request.Form[x] != null)
