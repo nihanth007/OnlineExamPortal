@@ -11,8 +11,8 @@ namespace OnlineExamPortal.Controllers
 {
     public class LoginController : Controller
     {
-        static string connectionString = @"mongodb://nihanth007:Lyvin##421@ds056009.mlab.com:56009/nihanth";
-        //static string connectionString = @"mongodb://localhost:27017/nihanth";
+        //static string connectionString = @"mongodb://nihanth007:Lyvin##421@ds056009.mlab.com:56009/nihanth";
+        static string connectionString = @"mongodb://localhost:27017/nihanth";
         static MongoClientSettings settings = MongoClientSettings.FromUrl(
           new MongoUrl(connectionString)
         );

@@ -4,11 +4,11 @@
 }
 @{
     <h2>@ViewBag.examData.ExamName</h2>
-    using (Html.BeginForm("Submit", "Student", FormMethod.Post, new { @class = "form-horizontal", id="ExamForm" }))
+    using (Html.BeginForm("Submit", "Student", FormMethod.Post, new { @class = "form-horizontal examForm", id="ExamForm" }))
     {
         for (int i = 0; i < ViewBag.examData.Questions; i++)
         {
-            <div class="fb-radio form-group field-q@(i+1)" id="q@(i+1)">
+            <div class="fb-radio form-group" id="field-q@(i+1)">
                 <label class="fb-radio-group-label" for="q2">Question Number @(i + 1)</label>
                 <div id="question@(i+1)">
                     @ViewBag.Questions[i].Que
@@ -20,6 +20,9 @@
                     <input class="radio-group" id="q@(i+1)-3" name="q@(i+1)" type="radio" value="4"><label for="q@(i+1)-3">@ViewBag.Questions[i].Op4</label><br>
                 </div>
                 <hr />
+                <a onclick="clearresponse(@(i+1))" class="btn btn-default">Clear Response</a>
+                <a onclick="previous(@(i+1),@ViewBag.examData.Questions)" class="btn btn-default">Previous</a>
+                <a onclick="next(@(i+1),@ViewBag.examData.Questions)" class="btn btn-default">Next</a>
             </div>
 
         }

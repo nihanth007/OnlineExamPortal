@@ -39,8 +39,8 @@
         string FullName = st.FirstName + " " + st.LastName;
         OnlineExamPortal.Models.ActiveExam ae = ViewBag.examData;
     }
-    <div id="main" class="row container body-content">
-        <div class="col-md-4" style="background-color:azure;padding-bottom:20px;">
+    <div id="main" style="display:flex;justify-content:flex-start;" class="body-content">
+        <div class="flex:1" style="padding-left:15px;padding-right:15px;background-color:azure;">
             <h5>Pin Number:</h5><data> @st.Pin</data>
             <h5>Name : </h5><data>@FullName </data>
             <h5>Course : </h5><data>@st.Course</data>
@@ -49,20 +49,35 @@
             <h5>Exam Name : </h5><data>@ae.ExamName </data>
             <h5>Time Limit : </h5><data>@ae.Time  Minutes</data>
             <h5>Total no. of Questions : </h5><data>@ae.Questions </data>
+            <button class="btn btn-block btn-success" onclick='$("#ExamForm").submit();'>Submit Exam</button>
+        </div>
+        <div style="flex:2;padding-left:15px;padding-right:15px;" class="body-content">
+            @RenderBody()
+        </div>
+        <div style="flex:1;float:right;">
             <div class="btn-group">
-                @{ 
+                @{
+                    string i2;
                     int i;
                     int n = ae.Questions;
-                    for(i=0;i<n;i++)
+                    for (i = 1; i <= n; i++)
                     {
-                        <button class="btn btn-default" id="q@(i+1)">@(i+1)</button>
+                        if (i < 10)
+                        {
+                            i2 = "0" + i.ToString();
+                        }
+                        else
+                        {
+                            i2 = i.ToString();
+                        }
+                        <button onclick="show(@(i),@(n))" class="btn btn-default" id="q@(i)">@(i2)</button>
+                        if (i % 6 == 0)
+                        {
+                            <br />
+                        }
                     }
                 }
             </div>
-            <button class="btn btn-block btn-success" onclick='$("#ExamForm").submit();'>Submit Exam</button>
-        </div>
-        <div class="col-md-8">
-            @RenderBody()
         </div>
     </div>
     <hr />
@@ -73,6 +88,9 @@
         var navHeight = $('#nav_container').height();
         $('#main').css("padding-top", navHeight);
     </script>
-
+    <script src="~/Scripts/nihanth.js"></script>
+    <script>
+        show(1,@ae.Questions);
+    </script>
 </body>
 </html>
