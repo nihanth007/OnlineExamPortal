@@ -62,8 +62,3 @@ function countdown(sec) {
 function timeout() {
     $("#ExamForm").submit();
 }
-
-function gettime() {
-    var t = document.getElementById('time').innerHTML;
-    countdown(t * 60);
-}

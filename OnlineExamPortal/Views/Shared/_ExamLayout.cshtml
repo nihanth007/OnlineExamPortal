@@ -29,6 +29,7 @@
             </div>
             <div class="navbar-collapse collapse navbar-right">
                 <ul class="nav navbar-nav">
+                    <li><a id="timeout" href="#"></a></li>
                     <li>@Html.ActionLink("Logout", "Logout", "Student", new { area = "" }, new { @class = "" })</li>
                 </ul>
             </div>
@@ -91,6 +92,7 @@
     <script src="~/Scripts/nihanth.js"></script>
     <script>
         show(1,@ae.Questions);
+        countdown(@ae.Time * 60);
     </script>
 </body>
 </html>
