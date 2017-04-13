@@ -25,11 +25,21 @@ function clearresponse(i) {
 
 function next(i, n)
 {
-
+    if (i == n) {
+        show(1, n);
+    }
+    else {
+        show(i + 1, n);
+    }
 }
 
 function previous(i, n) {
-
+    if (i == 1) {
+        show(n, n);
+    }
+    else {
+        show(i - 1, n);
+    }
 }
 
 function countdown(sec) {
